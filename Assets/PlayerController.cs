@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         currentForm = humanForm;
+        canChangeForm = true;
+        torchLight = torch.GetComponent<Light>();
     }
 
     void Update()
@@ -18,7 +20,8 @@ public class PlayerController : MonoBehaviour
         currentLane += inputLaneUp ? 1 : 0;
         currentLane -= inputLaneDown ? 1 : 0;
 
-        if(Input.GetKeyDown("e")){
+        if(Input.GetKeyDown("e") && canChangeForm)
+        {
             GameObject.Instantiate(explosionPrefab, currentForm.transform.position,
             Quaternion.identity);
 
@@ -50,6 +53,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (!canChangeForm)
+        {
+            StartCoroutine(trapEntered());
+        }
+
         // Move only in lane increments
         moveInput.x = 1.0f;//Mathf.Clamp(Input.GetAxisRaw("Horizontal") + 1.0f, 0.5f, 1.5f);
         moveInput.y = -Input.GetAxisRaw("Horizontal");
@@ -79,6 +87,28 @@ public class PlayerController : MonoBehaviour
             currentForm.transform.position.z - 2.0f
         );
 
+        if(torchLight.range > 5)
+        {
+            torchLight.range -= Time.deltaTime * 1.5f;
+        }
+        else
+        {
+            torchLight.range = 5;
+            torchLight.intensity = Mathf.Lerp(2f, 2.8f, Mathf.PingPong(Time.time, 1f));
+        }
+    }
+
+    //cooldown for changing form after entering a trap
+    private IEnumerator trapEntered()
+    {
+        yield return new WaitForSeconds(1f);
+        canChangeForm = true;
+    }
+
+    public void resetTorchLight()
+    {
+        torchLight.range = 15;
+        torchLight.intensity = 3;
     }
 
     public float movementAcceleration = 90.0f;
@@ -92,10 +122,13 @@ public class PlayerController : MonoBehaviour
     public GameObject explosionPrefab;
     public CameraController mainCamera;
     public GameObject torch;
+    private Light torchLight;
+
 
     private GameObject currentForm;
+    [HideInInspector] public bool canChangeForm;
 
-		[HideInInspector] public bool inputLaneUp;
+        [HideInInspector] public bool inputLaneUp;
 		[HideInInspector] public bool inputLaneDown;
 
     private Vector3 moveInput;
