@@ -51,8 +51,10 @@ namespace RPGCharacterAnims{
 		//Rolling.
 		[HideInInspector] public bool isRolling = false;
 		public float rollSpeed = 8;
-		public float rollduration = 0.35f;
+		public float rollduration = 1.5f;
 		private int rollNumber;
+        public SphereCollider rollCollider;
+        public CapsuleCollider normalCollider;
 
 		//Air control.
 		public float inAirSpeed = 6f;
@@ -351,9 +353,17 @@ namespace RPGCharacterAnims{
 			animator.SetTrigger("RollTrigger");
 			isRolling = true;
 			rpgCharacterController.canAction = false;
+
+            rollCollider.enabled = true;
+            normalCollider.enabled = false;
+
 			yield return new WaitForSeconds(rollduration);
 			isRolling = false;
-			rpgCharacterController.canAction = true;
+
+            rollCollider.enabled = false;
+            normalCollider.enabled = true;
+
+            rpgCharacterController.canAction = true;
 			currentState = RPGCharacterStateFREE.Idle;
 			rpgCharacterState = RPGCharacterStateFREE.Idle;
 		}

@@ -201,7 +201,22 @@ MonoBehaviour:
   isRolling: 0
   rollSpeed: 8
   rollduration: 0.35
+  rollCollider: {fileID: 4041164509521080508}
+  normalCollider: {fileID: 8820000110982404319}
   inAirSpeed: 6
+--- !u!135 &4041164509521080508
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820000109654993135}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.52, z: 0.35}
 --- !u!1 &8820000110173802387
 GameObject:
   m_ObjectHideFlags: 0

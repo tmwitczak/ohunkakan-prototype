@@ -175,6 +175,8 @@ MonoBehaviour:
   isRolling: 0
   rollSpeed: 8
   rollduration: 0.35
+  rollCollider: {fileID: 0}
+  normalCollider: {fileID: 0}
   inAirSpeed: 6
 --- !u!114 &114739187124406758
 MonoBehaviour:

@@ -7,12 +7,16 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if(gameObject.transform.position.x - player.transform.position.x <= playerDistance)
+        {
+            Move();
+        }
     }
 
     private void Move()
@@ -38,4 +42,6 @@ public class EnemyMovement : MonoBehaviour
     private float speed = 8.0f;
     private float angle = 0.45f;
     private bool movingLeft = true;
+    public GameObject player;
+    public float playerDistance = 30.0f;
 }

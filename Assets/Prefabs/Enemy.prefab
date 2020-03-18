@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e42c660423bc7441b389bee89d919e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerDistance: 20
 --- !u!54 &6992279149502758416
 Rigidbody:
   m_ObjectHideFlags: 0
