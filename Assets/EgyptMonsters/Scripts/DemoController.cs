@@ -71,8 +71,6 @@ public class DemoController : MonoBehaviour
 				animator.SetTrigger("Attack");
 				StartCoroutine(stopAttack(1));
                 tryDamageTarget();
-
-
             }
             // get Hit
             if (Input.GetKeyDown(KeyCode.N) && !isAttacking)

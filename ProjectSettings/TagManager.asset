@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Shadow
   - Collide
+  - Boundry
+  - Enemy
   layers:
   - Default
   - TransparentFX
