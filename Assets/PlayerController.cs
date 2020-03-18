@@ -11,6 +11,22 @@ public class PlayerController : MonoBehaviour
         torchLight = torch.GetComponent<Light>();
     }
 
+    public void changeToHuman() {
+        Object.Destroy(GameObject.Instantiate(explosionPrefabFail, currentForm.transform.position, Quaternion.identity), 10.0f);
+
+        currentForm = humanForm;
+
+        humanForm.transform.position = new Vector3(eagleForm.transform.position.x,
+            eagleForm.transform.position.y, eagleForm.transform.position.z);
+
+        eagleForm.SetActive(false);
+        humanForm.SetActive(true);
+
+        mainCamera.player = humanForm;
+        mainCamera.cameraTarget = humanForm;
+        mainCamera.SetPosition();
+    }
+
     void Update()
     {
         inputLaneDown = Input.GetKeyDown("s");
@@ -22,8 +38,8 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown("e") && canChangeForm)
         {
-            GameObject.Instantiate(explosionPrefab, currentForm.transform.position,
-            Quaternion.identity);
+            Object.Destroy(GameObject.Instantiate(explosionPrefab, currentForm.transform.position,
+            Quaternion.identity), 10.0f);
 
             if (currentForm == humanForm) {
                 currentForm = eagleForm;
@@ -39,18 +55,12 @@ public class PlayerController : MonoBehaviour
                 mainCamera.SetPosition();
             }
             else if (currentForm == eagleForm) {
-                currentForm = humanForm;
-
-                humanForm.transform.position = new Vector3(eagleForm.transform.position.x,
-                    eagleForm.transform.position.y, eagleForm.transform.position.z);
-
-                eagleForm.SetActive(false);
-                humanForm.SetActive(true);
-
-                mainCamera.player = humanForm;
-                mainCamera.cameraTarget = humanForm;
-                mainCamera.SetPosition();
+                changeToHuman();
             }
+        }
+        if(Input.GetKeyDown("e") && !canChangeForm)
+        {
+            Object.Destroy(GameObject.Instantiate(explosionPrefabFail, currentForm.transform.position, Quaternion.identity), 10.0f);
         }
 
         if (!canChangeForm)
@@ -121,6 +131,7 @@ public class PlayerController : MonoBehaviour
     public GameObject humanForm;
     public GameObject eagleForm;
     public GameObject explosionPrefab;
+    public GameObject explosionPrefabFail;
     public CameraController mainCamera;
     public GameObject torch;
     private Light torchLight;

@@ -16,6 +16,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!135 &4041164509521080508
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820000109654993135}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.52, z: 0.35}
 --- !u!136 &8820000110982404319
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -204,19 +217,6 @@ MonoBehaviour:
   rollCollider: {fileID: 4041164509521080508}
   normalCollider: {fileID: 8820000110982404319}
   inAirSpeed: 6
---- !u!135 &4041164509521080508
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8820000109654993135}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.52, z: 0.35}
 --- !u!1 &8820000110173802387
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +271,8 @@ MonoBehaviour:
   humanForm: {fileID: 8820000109654993135}
   eagleForm: {fileID: 8820000111458957742}
   explosionPrefab: {fileID: 5043885343950944986, guid: acd5f77138df7d24d8c79a53c389d925,
+    type: 3}
+  explosionPrefabFail: {fileID: 7680755663286178862, guid: 989f31d017024a94b9ed6b39774930f2,
     type: 3}
   mainCamera: {fileID: 0}
   torch: {fileID: 8820000111438005924}
