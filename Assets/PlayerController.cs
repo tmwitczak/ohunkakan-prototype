@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
                 currentForm = eagleForm;
 
                 eagleForm.transform.position = new Vector3(humanForm.transform.position.x,
-                    eagleForm.transform.position.y, humanForm.transform.position.z);
+                    humanForm.transform.position.y, humanForm.transform.position.z);
 
                 eagleForm.SetActive(true);
                 humanForm.SetActive(false);
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
                 currentForm = humanForm;
 
                 humanForm.transform.position = new Vector3(eagleForm.transform.position.x,
-                    humanForm.transform.position.y, eagleForm.transform.position.z);
+                    eagleForm.transform.position.y, eagleForm.transform.position.z);
 
                 eagleForm.SetActive(false);
                 humanForm.SetActive(true);
@@ -83,7 +83,8 @@ public class PlayerController : MonoBehaviour
         // Update torch position
         torch.transform.position = new Vector3(
             currentForm.transform.position.x,
-            torch.transform.position.y,
+            currentForm.transform.position.y + 3,
+            // torch.transform.position.y,
             currentForm.transform.position.z - 2.0f
         );
 
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour
     private Light torchLight;
 
 
-    private GameObject currentForm;
+    public GameObject currentForm;
     [HideInInspector] public bool canChangeForm;
 
         [HideInInspector] public bool inputLaneUp;
