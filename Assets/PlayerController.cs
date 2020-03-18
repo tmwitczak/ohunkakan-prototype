@@ -111,14 +111,6 @@ public class PlayerController : MonoBehaviour
         torchLight.intensity = 3;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Enemy")
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public float movementAcceleration = 90.0f;
     public float runSpeed = 6f;
 

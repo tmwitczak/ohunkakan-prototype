@@ -876,7 +876,17 @@ public class SuperCharacterController : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
+
+
 
 [Serializable]
 public class CollisionSphere
