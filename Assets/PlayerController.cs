@@ -14,16 +14,35 @@ public class PlayerController : MonoBehaviour
     public void changeToHuman() {
         Object.Destroy(GameObject.Instantiate(explosionPrefabFail, currentForm.transform.position, Quaternion.identity), 10.0f);
 
+        GameObject previousForm = currentForm;
         currentForm = humanForm;
 
-        humanForm.transform.position = new Vector3(eagleForm.transform.position.x,
-            eagleForm.transform.position.y, eagleForm.transform.position.z);
+        humanForm.transform.position = new Vector3(previousForm.transform.position.x,
+            currentForm.transform.position.y, previousForm.transform.position.z);
 
-        eagleForm.SetActive(false);
+        previousForm.SetActive(false);
         humanForm.SetActive(true);
 
         mainCamera.player = humanForm;
         mainCamera.cameraTarget = humanForm;
+        mainCamera.SetPosition();
+    }
+
+    private void changeForm(GameObject newForm, GameObject currentForm)
+    {
+        Object.Destroy(GameObject.Instantiate(explosionPrefab, currentForm.transform.position,
+        Quaternion.identity), 10.0f);
+
+        this.currentForm = newForm;
+
+        newForm.transform.position = new Vector3(currentForm.transform.position.x,
+            currentForm.transform.position.y, currentForm.transform.position.z);
+
+        newForm.SetActive(true);
+        currentForm.SetActive(false);
+
+        mainCamera.player = newForm;
+        mainCamera.cameraTarget = newForm;
         mainCamera.SetPosition();
     }
 
@@ -41,24 +60,35 @@ public class PlayerController : MonoBehaviour
             Object.Destroy(GameObject.Instantiate(explosionPrefab, currentForm.transform.position,
             Quaternion.identity), 10.0f);
 
-            if (currentForm == humanForm) {
-                currentForm = eagleForm;
-
-                eagleForm.transform.position = new Vector3(humanForm.transform.position.x,
-                    humanForm.transform.position.y, humanForm.transform.position.z);
-
-                eagleForm.SetActive(true);
-                humanForm.SetActive(false);
-
-                mainCamera.player = eagleForm;
-                mainCamera.cameraTarget = eagleForm;
-                mainCamera.SetPosition();
+            if (currentForm != eagleForm) {
+                changeForm(eagleForm, currentForm);
             }
-            else if (currentForm == eagleForm) {
+            else{
                 changeToHuman();
             }
         }
-        if(Input.GetKeyDown("e") && !canChangeForm)
+
+        if (Input.GetKeyDown("e") && !canChangeForm)
+        {
+            Object.Destroy(GameObject.Instantiate(explosionPrefabFail, currentForm.transform.position, Quaternion.identity), 10.0f);
+        }
+
+        if(Input.GetKeyDown("c") && canChangeForm)
+        {
+            Object.Destroy(GameObject.Instantiate(explosionPrefab, currentForm.transform.position,
+            Quaternion.identity), 10.0f);
+
+            if (currentForm != catForm)
+            {
+                changeForm(catForm, currentForm);
+            }
+            else if (currentForm == catForm)
+            {
+                changeToHuman();
+            }
+        }
+
+        if (Input.GetKeyDown("c") && !canChangeForm)
         {
             Object.Destroy(GameObject.Instantiate(explosionPrefabFail, currentForm.transform.position, Quaternion.identity), 10.0f);
         }
@@ -88,6 +118,12 @@ public class PlayerController : MonoBehaviour
 
             currentVelocity = Vector3.MoveTowards(currentVelocity, moveInput * runSpeed, movementAcceleration * Time.deltaTime);
 			eagleForm.transform.position += currentVelocity * Time.deltaTime;
+        }
+        else
+        {
+            moveInput.y = 0.0f;
+            currentVelocity = Vector3.MoveTowards(currentVelocity, moveInput * runSpeed, movementAcceleration * Time.deltaTime);
+            catForm.transform.position += currentVelocity * Time.deltaTime;
         }
 
         // Update torch position
@@ -130,6 +166,7 @@ public class PlayerController : MonoBehaviour
     public int laneWidth;
     public GameObject humanForm;
     public GameObject eagleForm;
+    public GameObject catForm;
     public GameObject explosionPrefab;
     public GameObject explosionPrefabFail;
     public CameraController mainCamera;
