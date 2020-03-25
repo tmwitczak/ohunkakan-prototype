@@ -7,17 +7,6 @@ public class EndPlanes : MonoBehaviour
 {
     public GameObject winText, loseText;
     public int ID;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -37,7 +26,7 @@ public class EndPlanes : MonoBehaviour
     }
     IEnumerator waitToResetLvl()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(0);
     }
 }

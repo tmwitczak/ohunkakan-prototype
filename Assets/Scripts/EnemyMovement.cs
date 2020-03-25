@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyMovement : MonoBehaviour
 {
+    public GameObject loseText;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.transform.position.x - player.transform.position.x <= playerDistance)
+        if(gameObject.transform.position.x - player.GetComponent<PlayerController>().currentForm.transform.position.x <= playerDistance)
         {
             Move();
         }
@@ -37,6 +39,17 @@ public class EnemyMovement : MonoBehaviour
         {
             movingLeft = !movingLeft;
         }
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+            loseText.SetActive(true);
+            StartCoroutine(waitToResetLvl());
+        }
+    }
+    IEnumerator waitToResetLvl()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(0);
     }
 
     private float speed = 8.0f;
