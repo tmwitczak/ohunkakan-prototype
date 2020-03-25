@@ -12,34 +12,21 @@ public class PlayerController : MonoBehaviour
     }
 
     public void changeToHuman() {
-        Object.Destroy(GameObject.Instantiate(explosionPrefabFail, currentForm.transform.position, Quaternion.identity), 10.0f);
-
-        GameObject previousForm = currentForm;
-        currentForm = humanForm;
-
-        humanForm.transform.position = new Vector3(previousForm.transform.position.x,
-            currentForm.transform.position.y, previousForm.transform.position.z);
-
-        previousForm.SetActive(false);
-        humanForm.SetActive(true);
-
-        mainCamera.player = humanForm;
-        mainCamera.cameraTarget = humanForm;
-        mainCamera.SetPosition();
+        changeForm(humanForm);
     }
 
-    private void changeForm(GameObject newForm, GameObject currentForm)
+    private void changeForm(GameObject newForm)
     {
-        Object.Destroy(GameObject.Instantiate(explosionPrefab, currentForm.transform.position,
-        Quaternion.identity), 10.0f);
+        Object.Destroy(GameObject.Instantiate(explosionPrefab,
+            currentForm.transform.position, Quaternion.identity), 10.0f);
 
-        this.currentForm = newForm;
+        GameObject previousForm = currentForm;
+        currentForm = newForm;
 
-        newForm.transform.position = new Vector3(currentForm.transform.position.x,
-            currentForm.transform.position.y, currentForm.transform.position.z);
+        newForm.transform.position = previousForm.transform.position;
 
         newForm.SetActive(true);
-        currentForm.SetActive(false);
+        previousForm.SetActive(false);
 
         mainCamera.player = newForm;
         mainCamera.cameraTarget = newForm;
@@ -61,10 +48,10 @@ public class PlayerController : MonoBehaviour
             Quaternion.identity), 10.0f);
 
             if (currentForm != eagleForm) {
-                changeForm(eagleForm, currentForm);
+                changeForm(eagleForm);
             }
             else{
-                changeToHuman();
+                changeForm(humanForm);
             }
         }
 
@@ -80,11 +67,11 @@ public class PlayerController : MonoBehaviour
 
             if (currentForm != catForm)
             {
-                changeForm(catForm, currentForm);
+                changeForm(catForm);
             }
             else if (currentForm == catForm)
             {
-                changeToHuman();
+                changeForm(humanForm);
             }
         }
 
