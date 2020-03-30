@@ -121,14 +121,14 @@ public class PlayerController : MonoBehaviour
             currentForm.transform.position.z - 2.0f
         );
 
-        if(torchLight.range > 5)
+        if(torchLight.range > 7)
         {
-            torchLight.range -= Time.deltaTime * 1.5f;
+            torchLight.range -= Time.deltaTime * 1.4f;
         }
         else
         {
-            torchLight.range = 5;
-            torchLight.intensity = Mathf.Lerp(2f, 2.8f, Mathf.PingPong(Time.time, 1f));
+            torchLight.range = 7;
+            torchLight.intensity = Mathf.Lerp(3f, 3.5f, Mathf.PingPong(Time.time, 1f));
         }
     }
 
@@ -141,8 +141,8 @@ public class PlayerController : MonoBehaviour
 
     public void resetTorchLight()
     {
-        torchLight.range = 15;
-        torchLight.intensity = 3;
+        torchLight.range = 20;
+        torchLight.intensity = 4;
     }
 
     public float movementAcceleration = 90.0f;
